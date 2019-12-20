@@ -31,7 +31,7 @@ const schema_1 = __importDefault(require("./config/schema"));
     });
     apolloServer.applyMiddleware({ app, cors: false });
     app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        res.json({ home: "Welcome home...", config: config_1.default });
+        res.json({ home: "Welcome home..." });
     }));
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {

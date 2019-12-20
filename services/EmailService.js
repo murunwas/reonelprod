@@ -30,9 +30,9 @@ function SendEmail(data) {
             const mailOptions = {
                 from: USER,
                 to: data.to,
-                subject: "",
+                subject: data.subject,
                 text: data.message,
-                html: `<p>${data.message}</p>`
+                html: data.message
             };
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -46,5 +46,28 @@ function SendEmail(data) {
         return promise;
     });
 }
+function thankYouEmail(to) {
+    const message = `
+  <p>Hi there,</p>
+
+Thank you for reaching out to Reonel consulting. Your request has been received and is being reviewed by our team.
+<br/>
+<p>Talk to you soon,</p>
+<p><i>Reonel consulting.</i></p>
+  `;
+    return SendEmail({ message, to, subject: "Thank you for contacting Reonel consulting." });
+}
+exports.thankYouEmail = thankYouEmail;
+function adminEmail(msg, from) {
+    const message = `
+  <p>Hi, Reonel consulting Team.</p>
+  <br/>
+  <p>You have recieved a message from: <b>${from}</b></p>
+  <p>${msg}</p>
+  `;
+    const email = config_1.default.IsProd ? config_1.default.USER : "mcengy@gmail.com";
+    return SendEmail({ message, to: email, subject: "Message from Reonel.co.za user." });
+}
+exports.adminEmail = adminEmail;
 exports.default = SendEmail;
 //# sourceMappingURL=EmailService.js.map

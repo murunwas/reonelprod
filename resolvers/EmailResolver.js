@@ -20,12 +20,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
-const EmailService_1 = __importDefault(require("../services/EmailService"));
+const EmailService_1 = require("../services/EmailService");
 let EmailInput = class EmailInput {
 };
 __decorate([
@@ -43,7 +40,8 @@ let EmailResolver = class EmailResolver {
     sendEmail(input) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield EmailService_1.default({ message: input.message, to: input.to });
+                yield EmailService_1.adminEmail(input.message, input.to);
+                yield EmailService_1.thankYouEmail(input.to);
                 return true;
             }
             catch (error) {
