@@ -16,29 +16,26 @@ require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const config_1 = __importDefault(require("./config"));
+const cors_1 = __importDefault(require("cors"));
 const schema_1 = __importDefault(require("./config/schema"));
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
+    app.use(cors_1.default({
+        origin: config_1.default.CorsUrl,
+        credentials: true
+    }));
     const schema = yield schema_1.default();
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema,
         context: ({ req, res }) => ({ req, res })
     });
     apolloServer.applyMiddleware({ app, cors: false });
-    app.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        res.json({ home: "Welcoe home...", config: config_1.default });
+    app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.json({ home: "Welcome home...", config: config_1.default });
     }));
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {
-        console.log("express server started");
+        console.log("express server started on port : " + PORT);
     });
-    if (config_1.default.ENV == "development") {
-        app.listen(PORT, () => {
-            console.log("express server started");
-        });
-    }
-    else {
-        app.listen();
-    }
 }))();
 //# sourceMappingURL=index.js.map

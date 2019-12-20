@@ -22,10 +22,11 @@
         "reflect-metadata": "^0.1.10",
         "sqlite3": "^4.1.0",
         "type-graphql": "^0.17.5",
-        "typeorm": "0.2.20"
+        "typeorm": "0.2.20",
+        "cors": "*"
     },
     "scripts": {
-        "dev": "nodemon --exec ts-node-dev --respawn src/index.ts",
+        "dev": "ts-node-dev --respawn --no-notify src/index.ts",
         "copy": "cp package.json dist/",
         "build": "tsc && npm run copy",
         "start": "node dist/index.js"
